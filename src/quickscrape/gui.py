@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from threading import Thread
+
+from .scraper import scrape_to_markdown
 
 class QuickScrapeGUI(tk.Tk):
     """Basic GUI skeleton for QuickScrape."""
@@ -29,10 +32,19 @@ class QuickScrapeGUI(tk.Tk):
         status_label.pack(pady=(10, 0))
 
     def run_scraper(self):
-        """Placeholder for the scraping logic."""
+        """Run the scraper in a background thread."""
         self.status_var.set("Running...")
-        # TODO: implement scraping logic
-        self.after(1000, lambda: self.status_var.set("Done"))
+        url = self.url_entry.get()
+        filename = self.file_entry.get()
+
+        def _task():
+            try:
+                scrape_to_markdown(url, filename)
+                self.status_var.set("Done")
+            except Exception as exc:
+                self.status_var.set(f"Error: {exc}")
+
+        Thread(target=_task, daemon=True).start()
 
 
 def main():

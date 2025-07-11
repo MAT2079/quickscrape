@@ -1,16 +1,17 @@
 # quickscrape
 
-A simple tool to scrape web pages. This repository currently contains a 
-skeleton application with a basic graphical user interface. The GUI allows
-you to specify a URL and the name of the file to save the results. A status
-label reports the progress of the scraping process.
+A simple tool to scrape web pages. The application features a graphical user
+interface that lets you specify a URL and an output file. A status label
+reports progress while the scraper runs in a background thread.
 
-The scraping logic is **not** implemented yet. Future updates will add the
-actual scraping functionality.
+The scraper downloads the web page, removes all HTML tags and saves the plain
+text to a Markdown file. Required dependencies are listed in
+`requirements.txt`.
 
 ## Running the application
 
 ```bash
+pip install -r requirements.txt
 python main.py
 ```
 
